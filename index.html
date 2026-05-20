@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus — Luxury SaaS Task Dashboard</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light">
+    
+    <!-- Ambient Blur Background Blobs -->
+    <div class="ambient-glows">
+        <div class="ambient-blob blob-indigo"></div>
+        <div class="ambient-blob blob-purple"></div>
+        <div class="ambient-blob blob-pink"></div>
+    </div>
+
+    <!-- Main Dashboard Wrap -->
+    <main class="dashboard-wrapper">
+        
+        <!-- Dashboard Top Bar / Header & Metrics -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo-pill">
+                    <i class="ri-checkbox-circle-fill"></i>
+                    <span>Focus.io</span>
+                </div>
+                <h1>Daily Workspace</h1>
+                <p id="currentDateText">Organize your workflow. Optimize your productivity.</p>
+            </div>
+            
+            <!-- SaaS Stats Badges Grid -->
+            <div class="stats-grid">
+                <div class="stat-card stat-total">
+                    <div class="stat-icon"><i class="ri-list-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Tasks</span>
+                        <span id="totalTasksBadge" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-completed">
+                    <div class="stat-icon"><i class="ri-checkbox-double-line"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">Completed</span>
+                        <span id="completedTasksBadge" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-pending">
+                    <div class="stat-icon"><i class="ri-time-line"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">Pending</span>
+                        <span id="pendingTasksBadge" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-trash">
+                    <div class="stat-icon"><i class="ri-delete-bin-7-line"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">Trash</span>
+                        <span id="trashTasksBadge" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Two Column Panel Workspace -->
+        <div class="panels-grid">
+            
+            <!-- Left Column: Main Todo Panel -->
+            <section class="panel-card app-container">
+                <div class="panel-header">
+                    <div class="panel-title-area">
+                        <h2>Active Board</h2>
+                        <p>Manage pending tasks and milestones</p>
+                    </div>
+                    <button id="deleteAllBtn" class="btn-clear-all" title="Archive all tasks to trash">
+                        <i class="ri-archive-line"></i> Clear All Tasks
+                    </button>
+                </div>
+
+                <!-- Input Field section -->
+                <div class="input-section-wrapper">
+                    <div class="input-glow-border">
+                        <i class="ri-edit-circle-line input-icon"></i>
+                        <input type="text" id="taskInput" placeholder="What will you focus on today? (Type & press Enter)" autocomplete="off">
+                        <button id="addBtn" class="btn-gradient-add">
+                            <i class="ri-add-line"></i> <span>Add Task</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters & Controls Header -->
+                <div class="filter-bar">
+                    <span class="filter-count-label"><i class="ri-filter-3-line"></i> View Filters</span>
+                    <div class="filter-select-wrapper">
+                        <select id="filterSelect" class="filter-select">
+                            <option value="all">All Focus</option>
+                            <option value="completed">Completed Tasks</option>
+                            <option value="pending">Pending Items</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Active Task List -->
+                <div class="task-list-container">
+                    <ul id="taskList" class="task-list"></ul>
+                    
+                    <!-- Empty State Placeholder -->
+                    <div id="activeEmptyState" class="empty-state-view hide">
+                        <div class="empty-illustration">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" class="dashed-circle" opacity="0.25"/>
+                                <path d="M75 105 L92 122 L128 80" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" class="check-draw" opacity="0.8"/>
+                                <circle cx="140" cy="60" r="6" fill="currentColor" class="sparkle-1"/>
+                                <circle cx="60" cy="140" r="4" fill="currentColor" class="sparkle-2"/>
+                                <circle cx="150" cy="130" r="5" fill="currentColor" class="sparkle-3"/>
+                            </svg>
+                        </div>
+                        <h3>All caught up</h3>
+                        <p>No active tasks found. Time to plan or enjoy your day!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Trash Panel -->
+            <section class="panel-card trash-container">
+                <div class="panel-header header-danger">
+                    <div class="panel-title-area">
+                        <h2>Trash Bin</h2>
+                        <p>Archive of recently deleted tasks</p>
+                    </div>
+                    <span class="danger-badge"><i class="ri-alert-line"></i> Safety Net</span>
+                </div>
+
+                <!-- Trash List Container -->
+                <div class="task-list-container">
+                    <ul id="trashList" class="task-list"></ul>
+                    
+                    <!-- Empty State Placeholder -->
+                    <div id="trashEmptyState" class="empty-state-view hide">
+                        <div class="empty-illustration">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 70 H150 M70 70 V150 C70 160 80 170 90 170 H110 C120 170 130 160 130 150 V70 M85 45 C85 40 90 35 100 35 C110 35 115 40 115 45 H140 V70 H60 V45 Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.2"/>
+                                <line x1="90" y1="100" x2="90" y2="140" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+                                <line x1="110" y1="100" x2="110" y2="140" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+                            </svg>
+                        </div>
+                        <h3>Trash is clean</h3>
+                        <p>Deleted items will appear here for restoration or permanent removal.</p>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </main>
+
+    <!-- Floating Theme Button (Glassmorphism Pill Widget) -->
+    <button id="themeBtn" aria-label="Toggle dark and light theme">
+        <span class="theme-icon-container">
+            <i class="ri-sun-line icon-sun"></i>
+            <i class="ri-moon-line icon-moon"></i>
+        </span>
+        <span class="theme-btn-label">Theme</span>
+    </button>
+
+    <!-- App Entrypoint Script -->
+    <script type="module" src="main.js"></script>
+    
+    <!-- Dynamic Date Filler -->
+    <script>
+        const dateText = document.getElementById("currentDateText");
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const today  = new Date();
+        dateText.innerText = "Empower your productivity. Today is " + today.toLocaleDateString("en-US", options) + ".";
+    </script>
+</body>
+</html>
