@@ -54,7 +54,8 @@ Theme handling
 Writing cleaner and scalable JavaScript
 
 🌐 Live Demo
-=>  to-do-list-app-taupe-gamma.vercel.app
+
+to-do-list-app-taupe-gamma.vercel.app
 
 👉 To-Do List App Live Demo
 
